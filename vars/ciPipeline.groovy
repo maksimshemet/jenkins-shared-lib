@@ -1,6 +1,8 @@
 def call(Map config = [:]){
 
     node {
+        checkout scm
+        
         stage('Code Scan'){
             sh "echo 'placeholder for code scan pipeline'"
         }
