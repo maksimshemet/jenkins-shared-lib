@@ -23,15 +23,13 @@ def call(Map config = [:]){
         }
         stage('Build artifact and push to registry'){
             utils.writeDockerConfig(this, registrySecretId)
+            String GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
 
-            withCheckout(scm) {
-                String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${env.GIT_COMMIT}"
-                sh """
-                docker build -t ${imageString} .
-                docker push ${imageString}
-                """
-            }
-            
+            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${GIT_COMMIT_HASH}"
+            sh """
+            docker build -t ${imageString} .
+            docker push ${imageString}
+            """
         }
     }
     
