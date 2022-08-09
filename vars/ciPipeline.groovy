@@ -25,7 +25,7 @@ def call(Map config = [:]){
             utils.writeDockerConfig(this, registrySecretId)
             String GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
 
-            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${GIT_COMMIT_HASH}"
+            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${GIT_COMMIT_HASH[0..7]}"
             sh """
             docker build -t ${imageString} .
             docker push ${imageString}
