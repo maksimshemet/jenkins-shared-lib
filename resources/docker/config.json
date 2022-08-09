@@ -1,0 +1,7 @@
+{
+    "auths": {
+            "lab.registry.com": {
+                    "auth": "lab.registry.com-token"
+            }
+    }
+}

@@ -1,8 +1,10 @@
+import com.org.common.Utils
+
 def call(Map config = [:]){
 
     node {
         checkout scm
-        
+
         stage('Code Scan'){
             sh "echo 'placeholder for code scan pipeline'"
         }
@@ -12,6 +14,9 @@ def call(Map config = [:]){
             testImage.inside {
                 sh 'cd app && python test.py'
             }
+        }
+        stage('Build artifact'){
+            Utils.writeDockerConfig(steps, "secret")
         }
     }
     
