@@ -7,5 +7,5 @@ def writeDockerConfig(def steps, String secret){
     steps.sh """
     [ -d $HOME/.docker ] || mkdir .docker
     """
-    steps.writeFile file: "$HOME/.docker/config.json" text: configJson
+    steps.writeFile(file: "$HOME/.docker/config.json" text: configJson)
 }
