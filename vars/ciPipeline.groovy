@@ -23,7 +23,7 @@ def call(Map config = [:]){
         }
         stage('Build artifact and push to registry'){
             utils.writeDockerConfig(this, registrySecretId)
-            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${GIT_COMMIT}"
+            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${env.GIT_COMMIT}"
             sh """
             docker build -t ${imageString} .
             docker push ${imageString}
