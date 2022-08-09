@@ -2,6 +2,8 @@ import com.org.common.Utils
 
 def call(Map config = [:]){
 
+    def utils = new Utils()
+
     node {
         checkout scm
 
@@ -17,7 +19,8 @@ def call(Map config = [:]){
         }
         stage('Build artifact'){
             String secret = "secret"
-            Utils.writeDockerConfig()
+
+            utils.writeDockerConfig()
         }
     }
     
