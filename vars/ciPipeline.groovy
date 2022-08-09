@@ -3,6 +3,7 @@ import com.org.common.Utils
 def call(Map config = [:]){
 
     def utils = new Utils()
+    String registrySecretId = "registry-secret"
 
     node {
         checkout scm
@@ -18,9 +19,9 @@ def call(Map config = [:]){
             }
         }
         stage('Build artifact'){
-            withCredentials([string(credentialsId: 'registry-secret', variable: 'secret')]) {
-                utils.writeDockerConfig(this, secret)
-            }
+            
+
+            utils.writeDockerConfig(this, registrySecretId)
         }
     }
     
