@@ -20,7 +20,9 @@ def call(Map config = [:]){
         stage('Build artifact'){
             String secret = "secret"
 
-            utils.writeDockerConfig(this, secret)
+            withCredentials([string(credentialsId: 'registry-secret', variable: 'secret')]) {
+                utils.writeDockerConfig(this, secret)
+            }
         }
     }
     
