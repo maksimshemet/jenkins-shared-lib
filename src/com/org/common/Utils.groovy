@@ -1,6 +1,6 @@
 package com.org.common
 
-def writeDockerConfig(def steps, String secret){
+def writeDockerConfig(def steps){
     
     def configJson = libraryResource 'docker/config.json'
 

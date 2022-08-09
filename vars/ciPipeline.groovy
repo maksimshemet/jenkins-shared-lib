@@ -17,7 +17,7 @@ def call(Map config = [:]){
         }
         stage('Build artifact'){
             String secret = "secret"
-            Utils.writeDockerConfig(self, secret)
+            Utils.writeDockerConfig(steps)
         }
     }
     
