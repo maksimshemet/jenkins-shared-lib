@@ -5,8 +5,8 @@ def call(Map config = [:]){
     def utils = new Utils()
     String registrySecretId = "registry-secret"
     String dockerRegistryUrl = "lab.registry.com"
-    String registryRepo = "hwAPI"
-    String appName = "hello_api"
+    String registryRepo = "hwapi"
+    String appName = "hello-api"
 
     node {
         checkout scm
@@ -23,11 +23,15 @@ def call(Map config = [:]){
         }
         stage('Build artifact and push to registry'){
             utils.writeDockerConfig(this, registrySecretId)
-            String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${env.GIT_COMMIT}"
-            sh """
-            docker build -t ${imageString} .
-            docker push ${imageString}
-            """
+
+            withCheckout(scm) {
+                String imageString = "${dockerRegistryUrl}/${registryRepo}/${appName}:${env.GIT_COMMIT}"
+                sh """
+                docker build -t ${imageString} .
+                docker push ${imageString}
+                """
+            }
+            
         }
     }
     
